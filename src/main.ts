@@ -1,7 +1,7 @@
 import { createSSRApp } from "vue";
 import { createPinia } from "pinia";
 import uviewPlus from 'uview-plus'
-
+import "./style/index.scss";
 
 import App from "./App.vue";
 export function createApp() {
