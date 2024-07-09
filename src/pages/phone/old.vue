@@ -25,6 +25,9 @@ import captcha from "@/utils/tencentCaptcha";
 import { getOldPhoneCode, oldPhoneComfirm } from "@/api/login";
 import { phoneRegEx } from "@/utils";
 import { ref } from 'vue';
+// #ifdef H5
+import "@/lib/TCaptcha";
+// #endif
 
 interface FormProps {
     phone: string
@@ -82,12 +85,8 @@ const getCode = async () => {
         });
     }
     if (uCodeRef.value.canGetCode) {
-        const res = await getOldPhoneCode()
-        form.value.code = res.data.data.code
-        uni.showToast({
-            icon: "none",
-            title: "验证码已发送"
-        });
+        await getOldPhoneCode()
+        // form.value.code = res.data.data.code
         uCodeRef.value.start();
     } else {
         return uni.showToast({
@@ -96,16 +95,19 @@ const getCode = async () => {
         });
     }
 };
+
 function submit() {
     uFormRef.value.validate().then(async (valid: boolean) => {
         if (valid) {
+            // uni.$u.toast('校验通过')
+            // #ifdef H5
             const isOK: any = await captcha();
             if (isOK) {
-                const res = await oldPhoneComfirm(
+                const res: any = await oldPhoneComfirm(
                     form.value.code,
                 )
                 uni.navigateTo({
-                    url: "/pages/phone/new?comfirmToken=" + res.data.data.confirmToken
+                    url: "/pages/phone/new?comfirmToken=" + res.data.confirmToken
                 });
 
             } else {
@@ -114,16 +116,16 @@ function submit() {
                     title: "校验失败"
                 });
             }
+            // #endif
         }
-    })
-        .catch(() => {
-            return uni.showToast({
-                icon: "none",
-                title: "校验失败"
-            });
+    }).catch(() => {
+        return uni.showToast({
+            icon: "none",
+            title: "校验失败"
         });
-
+    });
 }
+
 </script>
 
 <style lang="scss" scoped>

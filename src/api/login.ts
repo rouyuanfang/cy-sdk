@@ -28,7 +28,6 @@ export function getOldPhoneCode(
 ) {
     return request({
         url: "/user-center/account/sendBindingPhoneConfirmSms",
-        isToken: false,
         method: "POST",
     });
 }
@@ -37,7 +36,6 @@ export function oldPhoneComfirm(
 ) {
     return request({
         url: "/user-center/account/changeBindingPhoneConfirm",
-        isToken: false,
         method: "POST",
         data: {
             code
@@ -48,8 +46,7 @@ export function getNewPhoneCode(
     phone: string,
 ) {
     return request({
-        url: "/user-center/account/sendBindingPhoneConfirmSms",
-        isToken: false,
+        url: "/user-center/account/sendChangeBindingPhoneSms",
         method: "POST",
         data: {
             phone
@@ -63,7 +60,6 @@ export function newPhoneComfirm(
 ) {
     return request({
         url: "/user-center/account/changeBindingPhone",
-        isToken: false,
         method: "POST",
         data: {
             code,

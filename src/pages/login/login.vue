@@ -118,10 +118,6 @@ const getCode = async () => {
   }
   if (uCodeRef.value.canGetCode) {
     await getPhoneCode(form.value.username)
-    uni.showToast({
-      icon: "none",
-      title: "验证码已发送"
-    });
     uCodeRef.value.start();
   } else {
     return uni.showToast({
@@ -165,10 +161,10 @@ function submit() {
       // #ifdef H5
       const isOK: any = await captcha();
       if (isOK) {
-        const res = await login(form.value.username,
+        const res:any = await login(form.value.username,
           form.value.password, form.value.accountType
         )
-        updateUserInfo(res.data.data)
+        updateUserInfo(res.data)
         uni.navigateTo({
           url: "/pages/login/password"
         });
@@ -187,8 +183,7 @@ function submit() {
 
 
     }
-  })
-    .catch(() => {
+  }).catch(() => {
       return uni.showToast({
         icon: "none",
         title: "校验失败"
