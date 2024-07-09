@@ -10,13 +10,26 @@
 		{
 			"path": "pages/login/password",
 			"style": {
-				"navigationBarTitleText": "创建登录密码"
+				"navigationStyle": "custom"
+				// "navigationBarTitleText": "创建登录密码"
 			}
 		},
 		{
 			"path": "pages/login/invite",
 			"style": {
 				"navigationBarTitleText": "邀请码"
+			}
+		},
+		{
+			"path": "pages/phone/old",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/phone/new",
+			"style": {
+				"navigationStyle": "custom"
 			}
 		}
 	],
